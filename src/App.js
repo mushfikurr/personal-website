@@ -1,24 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import LandingPage from "./sections/LandingPage";
+import About from "./sections/About";
+import Projects from "./sections/Projects";
+import FunStuff from "./sections/Funstuff";
+import PermanentDrawerLeft from "./components/PermanentDrawer";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Switch, Route, useLocation } from "react-router-dom";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: ["Roboto Mono", "monospace"].join(","),
+  },
+});
 
 function App() {
+  const currentLocation = useLocation().pathname;
+  const renderWithoutLanding = (_) => {
+    return (
+      <ThemeProvider theme={theme}>
+        <PermanentDrawerLeft currentPage={currentLocation}>
+          <Switch>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/projects">
+              <Projects />
+            </Route>
+            <Route path="/funstuff">
+              <FunStuff />
+            </Route>
+          </Switch>
+        </PermanentDrawerLeft>
+      </ThemeProvider>
+    );
+  };
+
+  const renderRoutes = (_) => {
+    return (
+      <ThemeProvider theme={theme}>
+        <Switch>
+          <Route path="/">
+            <LandingPage />
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+        </Switch>
+      </ThemeProvider>
+    );
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {currentLocation !== "/" && renderWithoutLanding()}
+      {currentLocation === "/" && renderRoutes()}
+    </>
   );
 }
 
