@@ -6,23 +6,20 @@ import List from "@mui/material/List";
 import FadeLink from "./FadeLink";
 import FadeLinkContainer from "./FadeLinkContainer";
 import { grey } from "@mui/material/colors";
+import FadeLinkScroll from "./FadeLinkScroll";
 
 const drawerWidth = 300;
-const links = [
-  { text: "landing", link: "/" },
-  { text: "about me", link: "/about" },
-  { text: "projects", link: "/projects" },
-  { text: "fun stuff", link: "/funstuff" },
-];
 
 // TODO: add index
 export default function PermanentDrawerLeft(props) {
   const renderLinks = () => {
-    return links.map((link, index) => {
-      return (
-        <FadeLink fontSize={"1.05rem"} text={link.text} link={link.link} />
-      );
-    });
+    return (
+      <>
+        {props.refs.map((refObj, index) => {
+          return <FadeLinkScroll {...refObj} />;
+        })}
+      </>
+    );
   };
 
   return (
@@ -45,11 +42,7 @@ export default function PermanentDrawerLeft(props) {
       >
         <List style={{ textAlign: "center" }}>{renderLinks()}</List>
       </Drawer>
-      <Box
-        component="main"
-        textAlign="center"
-        sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
-      >
+      <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default" }}>
         {props.children}
       </Box>
     </Box>

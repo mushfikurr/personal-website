@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { React, useState, useEffect, useRef, useCallback } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { React, useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router";
 
 function useHover() {
   const [value, setValue] = useState(false);
@@ -30,12 +30,8 @@ function useHover() {
   return [ref, value];
 }
 
-function FadeLink(props) {
+export default function FadeLinkScroll(props) {
   const [hover, isHovering] = useHover();
-  const history = useHistory();
-  const handleOnClick = useCallback(() => {
-    history.push(props.link);
-  }, [history]);
   const currentLocation = useLocation().pathname;
   const fontSize = props.fontSize ? props.fontSize : "1rem";
 
@@ -53,19 +49,19 @@ function FadeLink(props) {
 
   const renderButton = (_) => {
     return (
-      <div ref={hover} onClick={handleOnClick} style={{ cursor: "pointer" }}>
+      <div ref={hover} style={{ cursor: "pointer" }}>
         {isHovering ? (
           <a
-            href={props.link}
+            href={"#" + props.link}
             style={{ color: "inherit", textDecoration: "inherit" }}
           >
             <Typography style={{ fontSize: fontSize }}>
-              > {props.text}
+              > {props.refTitle}
             </Typography>
           </a>
         ) : (
           <Typography style={{ fontSize: fontSize, color: grey[600] }}>
-            {props.text}
+            {props.refTitle}
           </Typography>
         )}
       </div>
@@ -74,5 +70,3 @@ function FadeLink(props) {
 
   return <>{renderDefaultButton()}</>;
 }
-
-export default FadeLink;

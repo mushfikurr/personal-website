@@ -1,15 +1,25 @@
-import { Typography } from "@mui/material";
+import { Typography, Container } from "@mui/material";
+import { grey } from "@mui/material/colors";
+import { forwardRef } from "react";
+import CenteredContent from "../components/CenteredContent";
+import ProjectContainer from "../components/ProjectContainer";
 
-const CURRENT_PAGE = "my toolkit"; // pass this into the drawer to make sure the navigation is available
-
-export default function Projects(props) {
+export const Projects = forwardRef((_, ref) => {
   return (
     <>
-      <div>
-        <Typography>
-          <h3># projects</h3>
-        </Typography>
+      <div id="projects" ref={ref}>
+        <CenteredContent>
+          <Typography>
+            <Typography>
+              <h1>
+                <span style={{ color: grey[700] }}>#</span>
+                <span> projects</span>
+              </h1>
+            </Typography>
+          </Typography>
+          <ProjectContainer />
+        </CenteredContent>
       </div>
     </>
   );
-}
+});
