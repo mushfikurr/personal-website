@@ -4,6 +4,8 @@ import Typist from "react-typist";
 import FadeLink from "../components/FadeLink";
 import FadeIcon from "../components/FadeIcon";
 import { icons } from "../components/IconPaths";
+import Fade from "@mui/material/Fade";
+import { useEffect, useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -42,35 +44,58 @@ const renderHeading = (_) => {
 const renderMenu = (_) => {
   return (
     <>
-      <FadeLink fontSize={"1.05rem"} link="/main#about" text="about me" />
-      <FadeLink fontSize={"1.05rem"} link="/main#projects" text="projects" />
+      <FadeLink
+        withScroll={true}
+        fontSize={"1.05rem"}
+        link="/main#about"
+        text="about me"
+      />
+      <FadeLink
+        withScroll={true}
+        fontSize={"1.05rem"}
+        link="/main#projects"
+        text="projects"
+      />
+      <FadeLink
+        withScroll={true}
+        fontSize={"1.05rem"}
+        link="/main#hobbies"
+        text="hobbies"
+      />
     </>
   );
 };
 
 function LandingPage() {
   const classes = useStyles();
+  const [isLoaded, setLoad] = useState(false);
+
+  useEffect(() => {
+    setLoad(true);
+  }, []);
 
   return (
     <>
-      <div className={classes.content}>
-        <Grid
-          container
-          spacing={1}
-          direction="column"
-          alignItems="center"
-          justifyContent="center"
-          className={classes.container}
-        >
-          <Grid item xs={12} align="center">
-            {renderHeading()}
+      <Fade in={true} timeout={300}>
+        <div className={classes.content}>
+          <Grid
+            container
+            spacing={1}
+            direction="column"
+            alignItems="center"
+            justifyContent="center"
+            className={classes.container}
+          >
+            <Grid item xs={12} align="center">
+              {renderHeading()}
+            </Grid>
+            {renderIconList()}
+            <Grid item align="center" xs={12}>
+              {renderMenu()}
+            </Grid>
           </Grid>
-          {renderIconList()}
-          <Grid item align="center" xs={12}>
-            {renderMenu()}
-          </Grid>
-        </Grid>
-      </div>
+        </div>
+      </Fade>
     </>
   );
 }

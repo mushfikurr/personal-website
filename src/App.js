@@ -1,10 +1,10 @@
 import LandingPage from "./sections/LandingPage";
 import { Projects } from "./sections/Projects";
 import { About } from "./sections/About";
+import { Hobbies } from "./sections/Hobbies";
 import PermanentDrawerLeft from "./components/PermanentDrawer";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Switch, HashRouter, Route, useLocation } from "react-router-dom";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { Switch, Route, useLocation } from "react-router-dom";
 import { useRef } from "react";
 
 const theme = createTheme({
@@ -15,6 +15,7 @@ const theme = createTheme({
 
 function App() {
   const currentLocation = useLocation().pathname;
+  const location = useLocation();
   const refs = [
     {
       refTitle: "about me",
@@ -26,23 +27,25 @@ function App() {
       link: "projects",
       refLink: useRef(null),
     },
+    {
+      refTitle: "hobbies",
+      link: "hobbies",
+      refLink: useRef(null),
+    },
   ];
 
   const renderWithoutLanding = (_) => {
     return (
       <ThemeProvider theme={theme}>
-        <PermanentDrawerLeft refs={refs}>
-          <TransitionGroup>
-            <CSSTransition timeout={250} classNames="fade">
-              <Switch>
-                <Route exact path="/main">
-                  <About ref={refs[0].refLink} />
-                  <Projects ref={refs[1].refLink} />
-                </Route>
-              </Switch>
-            </CSSTransition>
-          </TransitionGroup>
-        </PermanentDrawerLeft>
+        <Switch location={location}>
+          <Route exact path="/main" render={{ location }}>
+            <PermanentDrawerLeft refs={refs}>
+              <About ref={refs[0].refLink} />
+              <Projects ref={refs[1].refLink} />
+              <Hobbies ref={refs[2].refLink} />
+            </PermanentDrawerLeft>
+          </Route>
+        </Switch>
       </ThemeProvider>
     );
   };

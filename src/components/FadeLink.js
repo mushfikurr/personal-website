@@ -46,12 +46,28 @@ function FadeLink(props) {
           : {props.text}
         </Typography>
       );
+    } else if (props.withScroll) {
+      return renderButtonWithScroll();
     } else {
       return renderButton();
     }
   };
 
   const renderButton = (_) => {
+    return (
+      <div ref={hover} onClick={handleOnClick} style={{ cursor: "pointer" }}>
+        {isHovering ? (
+          <Typography style={{ fontSize: fontSize }}>> {props.text}</Typography>
+        ) : (
+          <Typography style={{ fontSize: fontSize, color: grey[600] }}>
+            {props.text}
+          </Typography>
+        )}
+      </div>
+    );
+  };
+
+  const renderButtonWithScroll = (_) => {
     return (
       <div ref={hover} onClick={handleOnClick} style={{ cursor: "pointer" }}>
         {isHovering ? (

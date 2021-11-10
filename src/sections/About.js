@@ -21,13 +21,7 @@ export const About = forwardRef((_, ref) => {
   return (
     <>
       <div id="about" ref={ref}>
-        <CenteredContent>
-          <Typography>
-            <h1>
-              <span style={{ color: grey[700] }}>#</span>
-              <span> about me</span>
-            </h1>
-          </Typography>
+        <CenteredContent title="about me">
           <Box>
             <p className={classes.aboutMeText}>
               👋! My name is Mushfikur. I am an undergraduate Computer Science
