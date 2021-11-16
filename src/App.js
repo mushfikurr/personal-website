@@ -5,15 +5,19 @@ import { Hobbies } from "./sections/Hobbies";
 import PermanentDrawerLeft from "./components/PermanentDrawer";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Switch, Route, useLocation } from "react-router-dom";
-import { useRef } from "react";
-
-const theme = createTheme({
-  typography: {
-    fontFamily: ["Roboto Mono", "monospace"].join(","),
-  },
-});
+import { useEffect, useRef, useState } from "react";
 
 function App() {
+  const [dark, setDark] = useState(false);
+  const theme = createTheme({
+    palette: {
+      mode: dark ? "dark" : "light",
+    },
+    typography: {
+      fontFamily: ["Roboto Mono", "monospace"].join(","),
+    },
+  });
+
   const currentLocation = useLocation().pathname;
   const location = useLocation();
   const refs = [
@@ -34,12 +38,20 @@ function App() {
     },
   ];
 
+  const handleThemeChange = (_) => {
+    setDark(!dark);
+  };
+
   const renderWithoutLanding = (_) => {
     return (
       <ThemeProvider theme={theme}>
         <Switch location={location}>
           <Route exact path="/main" render={{ location }}>
-            <PermanentDrawerLeft refs={refs}>
+            <PermanentDrawerLeft
+              handleThemeChange={handleThemeChange}
+              isDark={dark}
+              refs={refs}
+            >
               <About ref={refs[0].refLink} />
               <Projects ref={refs[1].refLink} />
               <Hobbies ref={refs[2].refLink} />
@@ -56,9 +68,6 @@ function App() {
         <Switch>
           <Route path="/">
             <LandingPage />
-          </Route>
-          <Route path="/about">
-            <About />
           </Route>
         </Switch>
       </ThemeProvider>

@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Typography, Fade } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { React, useState, useEffect, useRef, useCallback } from "react";
 import { useHistory, useLocation } from "react-router-dom";
@@ -42,7 +42,10 @@ function FadeLink(props) {
   const renderDefaultButton = (_) => {
     if (currentLocation === props.link) {
       return (
-        <Typography style={{ fontSize: fontSize, cursor: "pointer" }}>
+        <Typography
+          className="fade"
+          style={{ fontSize: fontSize, cursor: "pointer" }}
+        >
           : {props.text}
         </Typography>
       );
@@ -68,23 +71,28 @@ function FadeLink(props) {
   };
 
   const renderButtonWithScroll = (_) => {
+    const transDelay =
+      props.transitionDelay === undefined ? "0ms" : props.transitionDelay;
     return (
-      <div ref={hover} onClick={handleOnClick} style={{ cursor: "pointer" }}>
-        {isHovering ? (
-          <a
-            href={props.link}
-            style={{ color: "inherit", textDecoration: "inherit" }}
-          >
-            <Typography style={{ fontSize: fontSize }}>
-              > {props.text}
+      <Fade in={true} timeout={500} style={{ transitionDelay: transDelay }}>
+        <div ref={hover} onClick={handleOnClick} style={{ cursor: "pointer" }}>
+          {isHovering ? (
+            <a
+              href={props.link}
+              className="fade"
+              style={{ color: "inherit", textDecoration: "inherit" }}
+            >
+              <Typography style={{ fontSize: fontSize }}>
+                > {props.text}
+              </Typography>
+            </a>
+          ) : (
+            <Typography style={{ fontSize: fontSize, color: grey[600] }}>
+              {props.text}
             </Typography>
-          </a>
-        ) : (
-          <Typography style={{ fontSize: fontSize, color: grey[600] }}>
-            {props.text}
-          </Typography>
-        )}
-      </div>
+          )}
+        </div>
+      </Fade>
     );
   };
 

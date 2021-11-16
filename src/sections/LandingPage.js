@@ -5,14 +5,20 @@ import FadeLink from "../components/FadeLink";
 import FadeIcon from "../components/FadeIcon";
 import { icons } from "../components/IconPaths";
 import Fade from "@mui/material/Fade";
-import { useEffect, useState } from "react";
+import { useTheme } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: theme.palette.background.default,
+  },
   content: {
     height: "100vh",
+    color: theme.palette.text.primary,
+    backgroundColor: theme.palette.background.default,
   },
   container: {
     minHeight: "100vh",
+    backgroundColor: theme.palette.background.default,
   },
 }));
 
@@ -22,9 +28,10 @@ const renderIconList = (_) => {
       <FadeIcon
         iconPath={icons.github}
         link={"https://github.com/mushfikurr"}
+        transitionDelay="1200ms"
       />
-      <FadeIcon iconPath={icons.twitter} />
-      <FadeIcon iconPath={icons.linkedin} />
+      <FadeIcon iconPath={icons.twitter} transitionDelay="1300ms" />
+      <FadeIcon iconPath={icons.linkedin} transitionDelay="1400ms" />
     </Stack>
   );
 };
@@ -48,17 +55,20 @@ const renderMenu = (_) => {
         withScroll={true}
         fontSize={"1.05rem"}
         link="/main#about"
+        transitionDelay="1500ms"
         text="about me"
       />
       <FadeLink
         withScroll={true}
         fontSize={"1.05rem"}
         link="/main#projects"
+        transitionDelay="1600ms"
         text="projects"
       />
       <FadeLink
         withScroll={true}
         fontSize={"1.05rem"}
+        transitionDelay="1700ms"
         link="/main#hobbies"
         text="hobbies"
       />
@@ -68,19 +78,13 @@ const renderMenu = (_) => {
 
 function LandingPage() {
   const classes = useStyles();
-  const [isLoaded, setLoad] = useState(false);
-
-  useEffect(() => {
-    setLoad(true);
-  }, []);
 
   return (
-    <>
+    <div className={classes.root}>
       <Fade in={true} timeout={300}>
         <div className={classes.content}>
           <Grid
             container
-            spacing={1}
             direction="column"
             alignItems="center"
             justifyContent="center"
@@ -96,7 +100,7 @@ function LandingPage() {
           </Grid>
         </div>
       </Fade>
-    </>
+    </div>
   );
 }
 

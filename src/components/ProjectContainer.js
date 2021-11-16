@@ -4,11 +4,13 @@ import {
   CardContent,
   CardHeader,
   CardActions,
-  CardMedia,
+  Fade,
   Grid,
   Button,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { useOnScreen } from "./Utils";
+import { useRef } from "react";
 
 const projectList = [
   {
@@ -97,11 +99,16 @@ function ProjectCard(props) {
 export default function ProjectContainer(props) {
   return (
     <Grid container rowSpacing={3} columnSpacing={3}>
-      {projectList.map((project) => {
+      {projectList.map((project, index) => {
         return (
-          <Grid item xs={4}>
-            <ProjectCard {...project} />
-          </Grid>
+          <Fade
+            in={props.onScreen}
+            style={{ transitionDelay: (80 * index) ^ (2 + 200 + "ms") }}
+          >
+            <Grid item xs={12} sm={6} md={4}>
+              <ProjectCard {...project} />
+            </Grid>
+          </Fade>
         );
       })}
     </Grid>

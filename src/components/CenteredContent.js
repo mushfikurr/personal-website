@@ -1,5 +1,6 @@
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Slide, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import { useRef } from "react";
 
 export default function CenteredContent(props) {
   return (

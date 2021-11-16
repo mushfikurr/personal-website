@@ -1,9 +1,9 @@
-import { Typography, Container, Grid, Chip, Box } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { Chip, Box, Fade } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { forwardRef } from "react";
+import { forwardRef, useEffect } from "react";
 import CenteredContent from "../components/CenteredContent";
-import ProjectContainer from "../components/ProjectContainer";
+import { useHistory } from "react-router";
+import { useOnScreen } from "../components/Utils";
 
 const useStyles = makeStyles((theme) => ({
   jump: {
@@ -18,6 +18,15 @@ const useStyles = makeStyles((theme) => ({
 
 export const About = forwardRef((_, ref) => {
   const classes = useStyles();
+  const history = useHistory();
+  const onScreen = useOnScreen(ref, "-100px");
+
+  useEffect(() => {
+    if (onScreen) {
+      history.push("#about");
+    }
+  }, [onScreen]);
+
   return (
     <>
       <div id="about" ref={ref}>
@@ -25,12 +34,8 @@ export const About = forwardRef((_, ref) => {
           <Box>
             <p className={classes.aboutMeText}>
               👋! My name is Mushfikur. I am an undergraduate Computer Science
-              student
-              {/* student at{" "}
-          <a href="https://city.ac.uk" target="_blank">
-            City, University of London
-          </a> */}
-              .<br />
+              student based in London.
+              <br />
               My first introduction to programming was at age 12, making
               modifications to a popular sandbox game Minecraft.
               <br />
@@ -59,13 +64,20 @@ export const About = forwardRef((_, ref) => {
                 "consuming/designing api",
               ].map((skill, index) => {
                 return (
-                  <Chip
-                    className={classes.jump}
-                    sx={{ marginRight: "10px", marginBottom: "10px" }}
-                    label={skill}
-                    key={index}
-                    variant="outlined"
-                  />
+                  <Fade
+                    in={onScreen}
+                    style={{
+                      transitionDelay: (40 * index) ^ (2 + 200 + "ms"),
+                    }}
+                  >
+                    <Chip
+                      className={classes.jump}
+                      sx={{ marginRight: "10px", marginBottom: "10px" }}
+                      label={skill}
+                      key={index}
+                      variant="outlined"
+                    />
+                  </Fade>
                 );
               })}
             </Box>
