@@ -67,7 +67,7 @@ export const About = forwardRef((_, ref) => {
                   <Fade
                     in={onScreen}
                     style={{
-                      transitionDelay: (40 * index) ^ (2 + 200 + "ms"),
+                      transitionDelay: ((40 * index) ^ 2) + 50 + "ms",
                     }}
                   >
                     <Chip

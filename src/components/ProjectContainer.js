@@ -15,16 +15,13 @@ import { useRef } from "react";
 const projectList = [
   {
     title: "Smart Light Interface",
-    img: "https://picsum.photos/200/300?random=" + Math.random() * 10,
-    imgAlt: "Image",
     builtUsing: ["javascript", "react", "html/css", "material-ui", "electron"],
     projectDescription:
       "An interface created to interact with Govee smart lights using Govee's API.",
+    link: "https://github.com/mushfikurr/govee-controller",
   },
   {
-    title: "Lore",
-    img: "https://picsum.photos/200/300?random=" + Math.random() * 10,
-    imgAlt: "Image",
+    title: "Educational Social Media",
     builtUsing: [
       "python",
       "flask",
@@ -36,22 +33,21 @@ const projectList = [
     ],
     projectDescription:
       "A fully functional social media oriented towards education.",
+    link: "https://github.com/mushfikurr/edu-social-media",
   },
   {
     title: "Personal Website",
-    img: "https://picsum.photos/200/300?random=" + Math.random() * 10,
-    imgAlt: "Image",
     builtUsing: ["react", "javascript", "material-ui"],
     projectDescription:
       "A hub for my projects, professional experience and personal hobbies.",
+    link: "https://github.com/mushfikurr/personal-website",
   },
   {
-    title: "Raptor: Discord Bot",
-    img: "https://picsum.photos/200/300?random=" + Math.random() * 10,
-    imgAlt: "Image",
+    title: "Fortnite Discord Bot",
     builtUsing: ["python", "discord-py", "requests"],
     projectDescription:
       "A chatbot used in popular chat application Discord, to retrieve statistics from an API for Fortnite.",
+    link: "https://github.com/mushfikurr/fortnite-discord-bot",
   },
 ];
 
@@ -79,18 +75,18 @@ function ProjectCard(props) {
           </Typography>
         }
       />
-      {/* <CardMedia
-        component="img"
-        height="200"
-        image={props.img}
-        alt={props.img}
-      /> */}
       <CardContent style={{ marginTop: "-20px" }}>
         <p style={{ fontSize: "14px" }}>{props.projectDescription}</p>
       </CardContent>
       <div style={{ flexGrow: 1 }} />
       <CardActions style={{ marginTop: "-30px" }}>
-        <Button>open project</Button>
+        <Button
+          onClick={() => {
+            window.open(props.link, "_blank");
+          }}
+        >
+          open project
+        </Button>
       </CardActions>
     </Card>
   );
@@ -103,7 +99,7 @@ export default function ProjectContainer(props) {
         return (
           <Fade
             in={props.onScreen}
-            style={{ transitionDelay: (80 * index) ^ (2 + 200 + "ms") }}
+            style={{ transitionDelay: ((80 * index) ^ 2) + 50 + "ms" }}
           >
             <Grid item xs={12} sm={6} md={4}>
               <ProjectCard {...project} />
