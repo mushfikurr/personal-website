@@ -1,2 +1,5 @@
-# My personal website built in React
-Will be hosted soon.
+# My personal website
+It's now hosted [here!](https://mushfikur.uk/)
+
+This is built mainly in React.js.
+
